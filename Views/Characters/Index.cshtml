@@ -1,0 +1,67 @@
+﻿@model RAMAPI.Models.CharactersModel
+
+@{
+    ViewData["Title"] = "Characters";
+}
+
+<h1 class="text-center text-light">Characters</h1>
+
+<div class="container">
+
+    <div class="col-md-4 mb-3">
+        <input class="form-control input-group-sm mb-3 " type="text" id="searchTerm" name="searchTerm" placeholder="Search" oninput="searchCharacters()">
+    </div>
+
+    <div class="text-center mt-4 Page navigation example">
+        <nav aria-label="Pagination">
+            <ul class="pagination justify-content-center">
+                @for (int i = 1; i <= Model.Info.Pages; i++)
+                {
+                    var pageNumber = i;
+                    var currentPage = Model.Info.Pages;
+                    var isActive = pageNumber == currentPage ? "active" : "";
+                    <li class="page-item page-item @isActive">
+                        <a class="page-link" href="#" onclick="loadPage('@pageNumber')">@pageNumber</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+
+    <div class="row" id="characterContainer">
+        @foreach (var character in Model.Results)
+        {
+            <div class="col-md-4 mb-4 character-card">
+                <div class="card shadow rounded text-center bg-body text-light">
+                    <img src="@character.Image" class="card-img-top" alt="@character.Name">
+                    <div class="card-body">
+                        <h5 class="card-title">@character.Name</h5>
+                        <p class="card-text">@character.Status - @character.Species</p>
+                        <p class="card-text">@character.Gender</p>
+                        <p class="card-text">Origin - @character.Origin.Name</p>
+                        <p class="card-text">Location - @character.Location.Name</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="text-center mt-4 Page navigation example">
+        <nav aria-label="Pagination">
+            <ul class="pagination justify-content-center">
+                @for (int i = 1; i <= Model.Info.Pages; i++)
+                {
+                    var pageNumber = i;
+                    var currentPage = Model.Info.Pages;
+                    var isActive = pageNumber == currentPage ? "active" : "";
+                    <li class="page-item page-item @isActive">
+                        <a class="page-link" href="#" onclick="loadPage('@pageNumber')">@pageNumber</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+
